@@ -27,18 +27,9 @@ Misc1:AddButton({
     Name = "Play Sound/Music",
     Callback = function()
 local args = {
-	[1] = "rbxassetid://"_G.SoundID,
+	[1] = "rbxassetid://".._G.SoundID.."",
 	[2] = game:GetService("Players").LocalPlayer.Character.Torso
 }
 game:GetService("ReplicatedStorage"):WaitForChild("PlaySoundRemote"):InvokeServer(unpack(args))
-    end
-})
-
-Misc1:AddButton({
-    Name = "Stop Sound/Music { if it's not stopping, just reset }",
-    Callback = function()
-game:GetService("ReplicatedStorage").RadioStop:FireServer()
-game:GetService("ReplicatedStorage").StopRadio:FireServer()
-game:GetService("ReplicatedStorage"):WaitForChild("StopSoundRemote"):InvokeServer()
     end
 })
