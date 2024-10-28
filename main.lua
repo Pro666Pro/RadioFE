@@ -1,35 +1,27 @@
-local GameName = "FE Radio GUI - by nexer1234"
+game.Players.PlayerAdded:Connect(function(player)
+	player.CharacterAdded:Connect(function()
+		local backpack = player:WaitForChild("Backpack")
+		local cloneTool = game.ReplicatedStorage.Assets.Radio:Clone()
+		cloneTool.Parent = backpack
+	end)
+end)
 
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({IntroText = "Radio FE", IntroIcon = "rbxassetid://15315284749",Name = GameName, HidePremium = false, SaveConfig = true, ConfigFolder = "Tutorial"})
+local bypass;
+    bypass = hookmetamethod(game, "__namecall", function(method, ...) 
+        if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Ban then
+            return
+        elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.AdminGUI then
+            return
+        elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.WalkSpeedChanged then
+            return
+        end
+        return bypass(method, ...)
+    end)
 
-OrionLib:MakeNotification({Name = "Warning",Content = "Use at your own risk.",Image = "rbxassetid://7733658504",Time = 5})
+tool.Equipped:Connect(function()
+--Code
+end)
 
-local Misc = Window:MakeTab({
-	Name = "Main",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-local Misc1 = Misc:AddSection({
-	Name = "Play Music!"
-
-Misc1:AddTextbox({
-    Name = "Sound/Music ID",
-    Default = "Input",
-    TextDisappear = false,
-    Callback = function(Value)
-_G.SoundID = Value
-    end
-})
-
-Misc1:AddButton({
-    Name = "Play Sound/Music",
-    Callback = function()
-local args = {
-	[1] = "rbxassetid://".._G.SoundID,
-	[2] = game:GetService("Players").LocalPlayer.Character.Torso
-}
-game:GetService("ReplicatedStorage"):WaitForChild("PlaySoundRemote"):InvokeServer(unpack(args))
-    end
-})
+tool.Unequipped:Connect(function()
+--Code
+end)
